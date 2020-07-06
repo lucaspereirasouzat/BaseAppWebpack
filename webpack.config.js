@@ -1,6 +1,5 @@
 const path = require('path');
 const hwp = require('html-webpack-plugin');
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
@@ -137,22 +136,34 @@ module.exports = {
         moduleIds: 'hashed',
         splitChunks: {
             chunks: 'all',
-            minSize: 1000 * 600,
+            minSize: 0,
             // maxSize: 100000,
             // minChunks: 5,
             // maxAsyncRequests: 6,
-            // maxInitialRequests: 4,
+            maxInitialRequests: Infinity,
             // automaticNameDelimiter: '~',
             // name: "18230-4324",
             cacheGroups: {
-                commons: {
-                    name: 'commons',
-                    chunks: 'initial',
+                vendor: {
                     test: /[\\/]node_modules[\\/]/,
-                    // minChunks: Infinity,
-                    chunks: 'all',
+                    name(module) {
 
-                }
+                        // get the name. E.g. node_modules/packageName/not/this/part.js
+                        // or node_modules/packageName
+                        const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+
+                        // npm package names are URL-safe, but some servers don't like @ symbols
+                        return `npm.${packageName.replace('@', '')}`;
+                    }
+                },
+                // commons: {
+                //     name: 'commons',
+                //     chunks: 'initial',
+                //     test: /[\\/]node_modules[\\/]/,
+                //     // minChunks: Infinity,
+                //     chunks: 'all',
+
+                // }
             }
         },
         // minimize: true,

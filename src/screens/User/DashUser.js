@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from "react-redux";
 import { BaseComponent } from "../../components";
 import CardContent from '@material-ui/core/CardContent';
-import { fetchEmpresas, registerEmpresa, deleteEmpresa } from "../../reduxState/ducks/empresa";
+// import { fetchEmpresas, registerEmpresa, deleteEmpresa } from "../../reduxState/ducks/empresa";
 import { validate } from "../../utils";
 import Grid from '@material-ui/core/Grid';
 import CardActions from '@material-ui/core/CardActions';
@@ -35,53 +35,8 @@ const DashboardUser = ({ history }) => {
     const [errors, setErrors] = React.useState([]);
 
     const classes = useStyles();
-    let { empresas, page, total, rowsPerPage } = useSelector(({ empresa }) => empresa);
     let dispatch = useDispatch()
 
-
-    const _delete = async (id) => {
-
-        try {
-            let resutl = await dispatch(deleteEmpresa(id))
-            // await dispatch(verify())
-            // history.push("/")
-            alert("Empresa deletada com sucesso")
-
-            dispatch(fetchEmpresas())
-            console.log('deu certo', resutl);
-        } catch (error) {
-            console.log(error)
-            return setErrors(error)
-        }
-
-    }
-
-    const submitForm = async () => {
-        console.log(state)
-
-        let renamedFields = {
-            nome: "Nome Empresa",
-            cnpj: 'Email'
-        }
-        let fields = validate(state, renamedFields);
-        console.log(fields)
-        if (fields.length != 0) return setErrors(fields)
-
-        try {
-            let resutl = await dispatch(registerEmpresa(state))
-            // await dispatch(verify())
-            // history.push("/")
-            alert("Empresa cadastrado com sucesso")
-
-            setOpen(false);
-            dispatch(fetchEmpresas())
-            console.log('deu certo', resutl);
-        } catch (error) {
-            console.log(error)
-            return setErrors(error)
-        }
-
-    }
 
     return (
         <BaseComponent>

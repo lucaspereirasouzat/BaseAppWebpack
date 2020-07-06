@@ -64,11 +64,11 @@ export default usersReducer;
  * Pega todos os usuarios do sistema
  */
 export const fetchLogs = (page = 1, rowsPerPage = 50, search = "") => async (dispatch, getState) => {
-    dispatch({ type: 'LOG/CLEAR_ERROR' })
-    console.log(page = 1, rowsPerPage = 10, search)
+    //dispatch({ type: 'LOG/CLEAR_ERROR' })
+    // console.log(page = 1, rowsPerPage = 10, search)
 
     let { token } = getState().auth
-    console.log(search)
+
     if (token) {
         var promise1 = new Promise(async (resolve, reject) => {
             try {
@@ -81,7 +81,7 @@ export const fetchLogs = (page = 1, rowsPerPage = 50, search = "") => async (dis
                         time: time,
                     }
                 })
-                console.log(table);
+                //console.log(table);
 
                 dispatch({
                     type: TYPES.FetchLogSuccess,

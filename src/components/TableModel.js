@@ -1,6 +1,5 @@
-import React, { memo, Fragment, lazy, Suspense } from "react";
-import { Table, TableRow, TableCell, TableBody, TableContainer, TableHead, FormControl, Input, InputAdornment } from "@material-ui/core";
-import { Search } from "@material-ui/icons";
+import React, { memo, lazy, Suspense } from "react";
+import { Table, TableRow, TableCell, TableBody, TableContainer, TableHead, FormControl, Input, InputAdornment, CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 // import Pagination from "./Pagination";
 
@@ -21,10 +20,12 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const TableModel = memo(({ header, data, keys, setPesquisa, total, page, rowsPerPage }) => {
+const TableModel = memo(({ header, data, setPesquisa, total, page, rowsPerPage }) => {
     const classes = useStyles();
-    const Pagination = lazy(() => import('./Pagination'))
-    return (<Suspense fallback={<div>loading...</div>}>
+    const Pagination = require('./Pagination').default
+    const Search = require('@material-ui/icons/Search').default
+
+    return (
         <div style={{ width: '90%', height: '90%' }}>
 
             <FormControl className={classes.margin}>
@@ -62,7 +63,7 @@ const TableModel = memo(({ header, data, keys, setPesquisa, total, page, rowsPer
             </TableContainer>
             <Pagination count={total} page={page} rowsPerPage={rowsPerPage} />
         </div>
-    </Suspense>)
+    )
 })
 
 

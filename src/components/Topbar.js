@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect, lazy, Suspense, memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, IconButton, MenuItem, Menu, Avatar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -19,15 +19,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MenuAppBar() {
-  let history = useHistory();
-
+// Header appBar barra superior
+const MenuAppBar = memo(_ => {
+  // Pegar dados do usuario e token 
   let { user, token } = useSelector(({ auth }) => auth);
+
   let dispatch = useDispatch();
   const classes = useStyles();
-  const [drawer, setDrawer] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [image, setImage] = React.useState('');
+  const [drawer, setDrawer] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [image, setImage] = useState('');
   const open = Boolean(anchorEl);
 
   const handleMenu = event => {
@@ -35,34 +36,30 @@ export default function MenuAppBar() {
   };
 
   const handleClose = () => {
-
     setAnchorEl(null);
   };
 
-  React.useEffect(_ => {
-    // console.log(user.FileId.Int64);
-
-    Image(user.Pathfile.String)
+  useEffect(_ => {
+    if (user)
+      Image(user.Pathfile.String)
   }, [])
-  // Image()
 
+  // Carregar a imagem com token
   const Image = async (id) => {
     let image = await require("../services/Api.js").default.getImage({ token: token.token, id })
     setImage(image)
   }
 
 
+  // Para fazer o roteamento 
+  let { push } = useHistory();
   return (
     <div className={classes.root}>
       <Drawer state={drawer} user={user} setState={value => setDrawer(value)} />
-      {/* <FormGroup>
-        <FormControlLabel
-          control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-          label={auth ? 'Logout' : 'Login'}
-        />
-      </FormGroup> */}
       <AppBar position="static">
         <Toolbar>
+
+          {/* mensagem de boas vindas no header */}
           {user && (<Fragment>
             <IconButton onClick={_ => setDrawer(true)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
               <MenuIcon />
@@ -71,8 +68,9 @@ export default function MenuAppBar() {
             <Typography variant="h6" className={classes.title}>
               Seja bem vindo {user.Username}
             </Typography>
-          </Fragment>)}
-          <div></div>
+          </Fragment>
+          )}
+          {/* Menu geral da direita com rotas gerais  */}
           {user ? (
             <div>
               <IconButton
@@ -82,10 +80,7 @@ export default function MenuAppBar() {
                 onClick={handleMenu}
                 color="inherit"
               >
-
-                {/* <Image id={user.File_id} /> */}
                 <Avatar src={image} />
-                {/* <AccountCircle /> */}
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -102,8 +97,8 @@ export default function MenuAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={_ => history.push('/profile')}>Profile</MenuItem>
-                <MenuItem onClick={_ => history.push('/notifications')}>Notifications</MenuItem>
+                <MenuItem onClick={_ => push('/profile')}>Profile</MenuItem>
+                <MenuItem onClick={_ => push('/notifications')}>Notifications</MenuItem>
                 <MenuItem onClick={_ => dispatch(Logout()) && handleClose()}>Logout</MenuItem>
               </Menu>
             </div>
@@ -134,9 +129,9 @@ export default function MenuAppBar() {
                   open={open}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={_ => history.push('/')}>HomeScreen</MenuItem>
-                  <MenuItem onClick={_ => history.push('/login')}>Login</MenuItem>
-                  <MenuItem onClick={_ => history.push('/signup')}>Cadastro</MenuItem>
+                  <MenuItem onClick={_ => push('/')}>HomeScreen</MenuItem>
+                  <MenuItem onClick={_ => push('/login')}>Login</MenuItem>
+                  <MenuItem onClick={_ => push('/signup')}>Cadastro</MenuItem>
                 </Menu>
               </div>
             )}
@@ -144,4 +139,6 @@ export default function MenuAppBar() {
       </AppBar>
     </div >
   );
-}
+})
+
+export default MenuAppBar;

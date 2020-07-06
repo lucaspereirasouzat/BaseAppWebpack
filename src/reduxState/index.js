@@ -3,7 +3,7 @@ import storage from 'localforage'
 import { persistStore, persistReducer } from 'redux-persist'
 import thunk from "redux-thunk";
 import logger from "redux-logger";
-import { authReducer, usersReducer, empresaReducer, mentorReducer, clienteReducer, notificationReducer, logReducer } from "./ducks";
+import { authReducer, usersReducer, notificationReducer, logReducer } from "./ducks";
 import createEncryptor from 'redux-persist-transform-encrypt'
 
 
@@ -34,18 +34,6 @@ const notificationConfig = {
     whitelist: [''],
     transforms: [encryptor]
 }
-const empresaConfig = {
-    key: 'empresa',
-    storage,
-    whitelist: [''],
-    transforms: [encryptor]
-}
-const mentorConfig = {
-    key: 'mentor',
-    storage,
-    whitelist: [''],
-    transforms: [encryptor]
-}
 
 const authConfig = {
     key: 'auth',
@@ -53,12 +41,7 @@ const authConfig = {
     whitelist: ['token', 'user'],
     transforms: [encryptor]
 }
-const clienteConfig = {
-    key: 'cliente',
-    storage,
-    whitelist: [],
-    transforms: [encryptor]
-}
+
 const logConfig = {
     key: 'log',
     storage,
@@ -73,9 +56,6 @@ export default function () {
     let reducers = combineReducers({
         auth: persistReducer(authConfig, authReducer),
         users: persistReducer(usersConfig, usersReducer),
-        empresa: persistReducer(empresaConfig, empresaReducer),
-        mentor: persistReducer(mentorConfig, mentorReducer),
-        cliente: persistReducer(clienteConfig, clienteReducer),
         notification: persistReducer(notificationConfig, notificationReducer),
         log: persistReducer(logConfig, logReducer),
         // app: appReducer,

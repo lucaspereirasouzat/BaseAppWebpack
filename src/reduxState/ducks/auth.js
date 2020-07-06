@@ -160,7 +160,6 @@ export const verify = () => async (dispatch, getState) => {
     dispatch({ type: 'AUTH/CLEAR_ERROR' })
 
     let { token } = getState().auth
-    console.log(token);
 
     if (token) {
         var promise1 = new Promise(async (resolve, reject) => {
@@ -279,7 +278,6 @@ export const RegisterTokenNotification = () => async (dispatch, getState) => {
     let TokenNotification = await require("../../push-notification").askForPermissioToReceiveNotifications()
     let form = new FormData();
     let code = require("msgpack-lite").encode({ "TokenNotification": TokenNotification })
-    //     form.append('username', username)
     form.append('code', Buffer.from(code).toString('base64'))
 
     var promise1 = new Promise(async (resolve, reject) => {

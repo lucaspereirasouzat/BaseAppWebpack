@@ -1,5 +1,4 @@
-import React, { useState, useReducer, Fragment, useEffect } from "react";
-import { Typography, Card, Button, CardContent } from '@material-ui/core';
+import React, { Fragment, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from "react-redux";
 import { BaseComponent } from "../components";
@@ -29,22 +28,13 @@ const Dashboard = ({ history }) => {
     dispatch(require('../reduxState/ducks/auth').RegisterTokenNotification())
   }, [])
 
-  console.log(user.Securelevel);
-
   if (user.Securelevel === 'adm') {
 
     return (
       <BaseComponent >
-        {/* <Button style={{ backgroundColor: 'red' }} onClick={_ => history.push('./mentor/signup')} color={'default'} >
-          Cadastrar mentor
-      </Button>
-        <Button onClick={_ => history.push('./mentor/index')} color={'default'} >
-          Listar Mentores
-      </Button>
-        <Button onClick={_ => history.push('./users/index')} color={'default'} >
+        <button onClick={_ => history.push('./users')} color={'default'} >
           Listar usuarios
-      </Button> */}
-
+      </button>
       </BaseComponent >
     )
   }

@@ -1,17 +1,17 @@
 import React, { memo } from 'react';
-import { ThemeProvider } from '@material-ui/styles';
+import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import { createMuiTheme } from '@material-ui/core/styles'
 import './App.css';
 import { blue, indigo } from '@material-ui/core/colors'
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react'
 import createReducers from "./reduxState/index";
-import routes from './routes'
-import { ProtectedRoutes } from "./components";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 import { Route, BrowserRouter } from 'react-router-dom'
 
 const { store, persistor } = createReducers()
 
+const routes = require('./routes').default;
 
 const theme = createMuiTheme({
   palette: {
@@ -31,15 +31,15 @@ const theme = createMuiTheme({
   }
 });
 
-const App = memo(() => (
+const App = memo(_ => (
   <Provider store={store}>
     <PersistGate persistor={persistor}>
       <ThemeProvider theme={theme}>
 
         <BrowserRouter>
-          {routes.map((value) => value.secure ?
-            <ProtectedRoutes {...value} /> :
-            <Route exact {...value} />
+          {routes.map(({ id, secure, ...value }) => secure ?
+            <ProtectedRoutes key={id} {...value} /> :
+            <Route exact key={id} {...value} />
           )}
         </BrowserRouter>
 

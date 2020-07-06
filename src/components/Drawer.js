@@ -1,10 +1,8 @@
 import React, { memo, Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-// import InboxIcon from '@material-ui/icons/MoveToInbox';
-// import MailIcon from '@material-ui/icons/Mail';
 import { useHistory } from "react-router-dom";
-import routes from '../routes';
+// import routes from '../routes';
 
 const useStyles = makeStyles({
     list: {
@@ -16,9 +14,9 @@ const useStyles = makeStyles({
     },
 });
 
-// const routes = require('../routes');
 
-export default memo(({ state, setState, user }) => {
+// componente de drawer para o header
+const DrawerComponent = memo(({ state, setState, user }) => {
     const classes = useStyles();
     const history = useHistory()
 
@@ -30,6 +28,8 @@ export default memo(({ state, setState, user }) => {
 
         setState(open);
     };
+
+    const routes = require('../routes').default
 
     return (
         <Fragment>
@@ -66,3 +66,5 @@ export default memo(({ state, setState, user }) => {
         </Fragment>
     );
 })
+
+export default DrawerComponent;

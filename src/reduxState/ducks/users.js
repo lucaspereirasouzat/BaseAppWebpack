@@ -59,22 +59,20 @@ export const fetchUsers = (page = 0, rowsPerPage = 50, search) => async (dispatc
     //console.log(page = 1, rowsPerPage = 10, search)
 
     let { token } = getState().auth
-    console.log(search)
     if (token) {
         var promise1 = new Promise(async (resolve, reject) => {
             try {
-                let result = await Api.fetchUsers(token.token, page, rowsPerPage, search)
-                console.log(result)
+                let { Table, Page, RowsPerPage, Total } = await Api.fetchUsers(token.token, page, rowsPerPage, search)
                 dispatch({
                     type: TYPES.FetchUserSuccess,
                     payload: {
-                        users: result.Table,
-                        page: result.Page,
-                        rowsPerPage: result.RowsPerPage,
-                        total: result.Total
+                        users: Table,
+                        page: Page,
+                        rowsPerPage: RowsPerPage,
+                        total: Total
                     }
                 });
-                resolve(result)
+                resolve({ Table, Page, RowsPerPage, Total })
             } catch (error) {
                 dispatch({
                     type: TYPES.FetchUserFailure,

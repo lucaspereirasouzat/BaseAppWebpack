@@ -22,35 +22,43 @@ const isLocalhost = Boolean(
 
 export function register(config) {
   if ('serviceWorker' in navigator) {
-    // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(location.protocol + '//' + location.host, window.location.href);
-    if (publicUrl.origin !== window.location.origin) {
-      // Our service worker won't work if PUBLIC_URL is on a different origin
-      // from what our page is served on. This might happen if a CDN is used to
-      // serve assets; see https://github.com/facebook/create-react-app/issues/2374
-      return;
-    }
 
     window.addEventListener('load', () => {
-      const swUrl = `${location.protocol + '//' + location.host}/service-worker.js`;
-
-      if (isLocalhost) {
-        // This is running on localhost. Let's check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl, config);
-
-        // Add some additional logging to localhost, pointing developers to the
-        // service worker/PWA documentation.
-        navigator.serviceWorker.ready.then(() => {
-          console.log(
-            'This web app is being served cache-first by a service ' +
-            'worker. To learn more, visit https://bit.ly/CRA-PWA'
-          );
-        });
-      } else {
-        // Is not localhost. Just register service worker
-        registerValidSW(swUrl, config);
-      }
+      navigator.serviceWorker.register('/service-worker.js').then(registration => {
+        console.log('SW registered: ', registration);
+      }).catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
     });
+    // The URL constructor is available in all browsers that support SW.
+    // const publicUrl = new URL(location.protocol + '//' + location.host, window.location.href);
+    // if (publicUrl.origin !== window.location.origin) {
+    //   // Our service worker won't work if PUBLIC_URL is on a different origin
+    //   // from what our page is served on. This might happen if a CDN is used to
+    //   // serve assets; see https://github.com/facebook/create-react-app/issues/2374
+    //   return;
+    // }
+
+    // window.addEventListener('load', () => {
+    //   const swUrl = `${location.protocol + '//' + location.host}/service-worker.js`;
+
+    //   if (isLocalhost) {
+    //     // This is running on localhost. Let's check if a service worker still exists or not.
+    //     checkValidServiceWorker(swUrl, config);
+
+    //     // Add some additional logging to localhost, pointing developers to the
+    //     // service worker/PWA documentation.
+    //     navigator.serviceWorker.ready.then(() => {
+    //       console.log(
+    //         'This web app is being served cache-first by a service ' +
+    //         'worker. To learn more, visit https://bit.ly/CRA-PWA'
+    //       );
+    //     });
+    //   } else {
+    //     // Is not localhost. Just register service worker
+    //     registerValidSW(swUrl, config);
+    //   }
+    // });
   }
 }
 

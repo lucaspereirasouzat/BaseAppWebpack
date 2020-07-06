@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { fetchNotifications } from "../reduxState/ducks/notifications";
 import { useDispatch, useSelector } from "react-redux";
 import { BaseComponent } from "../components";
-import { ListNotifications } from '../push-notification'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -19,15 +18,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Notifications = () => {
-
-    // let [state, setState] = useReducer((prev, updated) => ({
-    //     ...prev,
-    //     ...updated,
-    // }), { Email: '', Username: '', file: {} })
-
     let [pesquisa, setPesquisa] = useState('')
-
-    //let { user } = useSelector(({ auth }) => auth)
     let { notifications, rowsPerPage, page, total } = useSelector(({ notification }) => notification)
     let emailfield = useRef()
 
@@ -37,27 +28,7 @@ const Notifications = () => {
 
     useEffect(() => {
         dispatch(fetchNotifications())
-        // ListNotifications()
-        //  setState({ ...user })
     }, [])
-
-
-
-
-    /**
-     * Valida se o campo esta correto 
-     * @param {} field 
-     */
-    const _isIncorrect = (field) => errors.some(v => v.field == field);
-
-    /**
-   * Valida se o campo esta correto e devolve a mensagem de erro
-   * @param {} field 
-   */
-    const _isIncorrectMessage = (field) => errors.some(v => v.field == field) && errors.find(v => v.field == field).message
-
-    // let { Username, Email, FileID } = state;
-
 
     const TableModel = lazy(() => import('../components/TableModel'));
 
