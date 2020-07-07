@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const TableModel = memo(({ header, data, setPesquisa, total, page, rowsPerPage }) => {
+const TableModel = memo(({ header, data, total, page, rowsPerPage, setPesquisa }) => {
     const classes = useStyles();
     const Pagination = require('./Pagination').default
     const Search = require('@material-ui/icons/Search').default

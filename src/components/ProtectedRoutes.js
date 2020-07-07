@@ -1,19 +1,19 @@
 import React, { memo } from "react";
 import { Redirect, Route, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 // import { verify } from "../reduxState/ducks/auth";
 
 
 export default memo((props) => {
     const routes = require("../routes").default;
-    const { user } = useSelector(({ auth }) => auth);
+    const user = useSelector(({ auth }) => auth.user);
     let history = useHistory();
-    let dispatch = useDispatch();
+    // let dispatch = useDispatch();
 
     //useEffect(_ => dispatch(verify()), [])
 
     if (user) {
-        if (routes.find((v) => v.path == history.location.pathname).roles.some(v => v == user.Securelevel))
+        if (routes.find(v => v.path == history.location.pathname).roles.some(v => v == user.Securelevel))
             return <Route {...props} />
         else
             return <Redirect to={'/'} />
@@ -23,5 +23,5 @@ export default memo((props) => {
         else
             return <Redirect to={'/'} />
     }
-}
+}, () => false
 )

@@ -1,28 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useEffect } from "react";
 import { fetchLogs } from "../../reduxState/ducks/logs";
 import { useDispatch, useSelector } from "react-redux";
 import { BaseComponent, TableModel } from "../../components";
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        '& > *': {
-            margin: theme.spacing(1),
-            width: 300,
-            flexDirection: 'row',
-            display: 'flex',
-
-        },
-    },
-}));
-
 const Logs = () => {
     let [pesquisa, setPesquisa] = useState('')
     let { logs, rowsPerPage, page, total } = useSelector(({ log }) => log)
-    let emailfield = useRef()
 
-    let [errors, setErrors] = useState([])
-    const classes = useStyles();
     let dispatch = useDispatch();
 
     useEffect(() => {

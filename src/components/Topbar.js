@@ -139,6 +139,6 @@ const MenuAppBar = memo(_ => {
       </AppBar>
     </div >
   );
-})
+}, () => false)
 
 export default MenuAppBar;

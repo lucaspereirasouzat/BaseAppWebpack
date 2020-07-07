@@ -7,10 +7,12 @@ import { useHistory } from "react-router-dom";
 const useStyles = makeStyles({
     list: {
         width: 250,
-        backgroundColor: '#303f9f'
+        backgroundColor: '#303f9f',
+        height: 'auto'
     },
     fullList: {
         width: 'auto',
+        backgroundColor: '#303f9f',
     },
 });
 
@@ -30,6 +32,7 @@ const DrawerComponent = memo(({ state, setState, user }) => {
     };
 
     const routes = require('../routes').default
+    console.log('ender');
 
     return (
         <Fragment>
@@ -48,9 +51,9 @@ const DrawerComponent = memo(({ state, setState, user }) => {
                                     // if (!!!user && roles.some(v => v == user.secureLevel) && secure) {
                                     if (user && roles.some(v => v == user.Securelevel) && secure)
                                         return (
-                                            <ListItem color={'blue'} onClick={_ => history.push(path)} button key={id}>
-                                                <ListItemIcon><Icon /></ListItemIcon>
-                                                <ListItemText primary={text} />
+                                            <ListItem style={{ color: 'white' }} onClick={_ => history.push(path)} button key={id}>
+                                                <ListItemIcon><Icon style={{ color: 'white' }} /></ListItemIcon>
+                                                <ListItemText style={{ color: 'white' }} primary={text} />
                                             </ListItem>)
                                 }
                                 // }
@@ -65,6 +68,6 @@ const DrawerComponent = memo(({ state, setState, user }) => {
 
         </Fragment>
     );
-})
+}, (prev, next) => prev.state === next.state)
 
 export default DrawerComponent;
