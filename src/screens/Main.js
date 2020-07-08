@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import BaseComponent from "../components/BaseComponent";
 
-const Home = ({ history }) => {
+const Home = () => {
 
   return (
     <BaseComponent >

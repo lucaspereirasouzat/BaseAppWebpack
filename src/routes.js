@@ -1,11 +1,11 @@
 import { Person, PersonAdd, List, Dashboard as DashboardIcon } from "@material-ui/icons";
-import loadable from "@loadable/component";
+const loadable = require("@loadable/component").default;
 
 let routes = [
   {
     id: 1,
     path: '/',
-    component: loadable(() => import("./screens/Main.js")),
+    component: loadable(() => import("screens/Main.js")),
     secure: false,
     roles: [],
     exact: true
@@ -14,7 +14,7 @@ let routes = [
     id: 2,
     path: '/login',
     text: 'Login',
-    component: loadable(() => import("./screens/Auth/Login.js")),
+    component: loadable(() => import("screens/Auth/Login.js")),
     secure: false,
     roles: [],
     exact: true
@@ -22,7 +22,7 @@ let routes = [
   {
     id: 3,
     path: '/signup',
-    component: loadable(() => import("./screens/Auth/Signup.js")),
+    component: loadable(() => import("screens/Auth/Signup.js")),
     secure: false,
     roles: [],
     exact: true
@@ -30,7 +30,7 @@ let routes = [
   {
     id: 4,
     path: '/dashboard',
-    component: loadable(() => import("./screens/Dashboard.js")),
+    component: loadable(() => import("screens/Dashboard.js")),
     secure: true,
     text: 'Dashboard',
     icon: DashboardIcon,
@@ -40,7 +40,7 @@ let routes = [
   {
     id: 17,
     path: '/notifications',
-    component: loadable(() => import("./screens/Notifications.js")),
+    component: loadable(() => import("screens/Notifications.js")),
     secure: true,
     //text: 'Dashboard',
     // icon: DashboardIcon,
@@ -50,7 +50,7 @@ let routes = [
   {
     id: 6,
     path: '/profile',
-    component: loadable(() => import("./screens/Auth/Profile.js")),
+    component: loadable(() => import("screens/Auth/Profile.js")),
     secure: true,
     roles: ['adm', 'user', 'mentor'],
     exact: true
@@ -58,7 +58,7 @@ let routes = [
   {
     id: 5,
     path: '/users',
-    component: loadable(() => import("./screens/Adm/Users/Users.js")),
+    component: loadable(() => import("screens/Adm/Users/Users.js")),
     secure: true,
     text: 'Lista de usuarios',
     icon: List,
@@ -68,7 +68,7 @@ let routes = [
   {
     id: 7,
     path: '/users/update/:id',
-    component: loadable(() => import("./screens/Auth/Profile.js")),
+    component: loadable(() => import("screens/Auth/Profile.js")),
     secure: true,
     roles: ['adm'],
     exact: false
@@ -76,7 +76,7 @@ let routes = [
   {
     id: 8,
     path: '/forgotPassword',
-    component: loadable(() => import("./screens/Auth/ForgotPassword.js")),
+    component: loadable(() => import("screens/Auth/ForgotPassword.js")),
     secure: false,
     roles: [],
     exact: true
@@ -85,7 +85,7 @@ let routes = [
   {
     id: 9,
     path: '/logs/index',
-    component: loadable(() => import("./screens/Adm/Logs.js")),
+    component: loadable(() => import("screens/Adm/Logs.js")),
     icon: List,
     secure: true,
     roles: ['adm'],

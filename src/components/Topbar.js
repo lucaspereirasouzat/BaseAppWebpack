@@ -46,7 +46,7 @@ const MenuAppBar = memo(_ => {
 
   // Carregar a imagem com token
   const Image = async (id) => {
-    let image = await require("../services/Api.js").default.getImage({ token: token.token, id })
+    let image = await require("services/Api.js").default.getImage({ token: token.token, id })
     setImage(image)
   }
 

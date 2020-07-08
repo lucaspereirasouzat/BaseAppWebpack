@@ -1,10 +1,10 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from "react-redux";
-import { Pagination, BaseComponent } from "../../../components";
+import { Pagination, BaseComponent } from "components";
 import Search from '@material-ui/icons/Search';
 import { InputAdornment, Input, FormControl, Typography, Avatar, ListItemAvatar, ListItemText, Divider, ListItem, List } from '@material-ui/core';
-import { fetchUsers } from "../../../reduxState/ducks/users";
+import { fetchUsers } from "reduxState/ducks/users";
 
 
 
@@ -73,7 +73,7 @@ const Users = ({ history }) => {
                     users.map(({ Username, image_id, Email, Securelevel, id }) => {
                         let image = '';
                         async (image_id) => {
-                            image = await require("../../../services/Api.js").default.getImage({ token: token.token, id: image_id.String })
+                            image = await require("services/Api.js").default.getImage({ token: token.token, id: image_id.String })
                         }
                         console.log(image)
                         return (

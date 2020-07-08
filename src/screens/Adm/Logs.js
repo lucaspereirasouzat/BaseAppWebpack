@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { fetchLogs } from "../../reduxState/ducks/logs";
+import { fetchLogs } from "reduxState/ducks/logs";
 import { useDispatch, useSelector } from "react-redux";
-import { BaseComponent, TableModel } from "../../components";
+import { BaseComponent, TableModel } from "components";
 
 const Logs = () => {
     let [pesquisa, setPesquisa] = useState('')

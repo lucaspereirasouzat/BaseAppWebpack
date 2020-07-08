@@ -5,8 +5,8 @@ import './App.css';
 import { blue, indigo } from '@material-ui/core/colors'
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react'
-import createReducers from "./reduxState/index";
-import ProtectedRoutes from "./components/ProtectedRoutes";
+import createReducers from "reduxState/index";
+import ProtectedRoutes from "components/ProtectedRoutes";
 import { Route, BrowserRouter } from 'react-router-dom'
 
 const { store, persistor } = createReducers()
@@ -31,6 +31,7 @@ const theme = createMuiTheme({
   }
 });
 
+
 const App = memo(_ => (
   <Provider store={store}>
     <PersistGate persistor={persistor}>
@@ -46,6 +47,6 @@ const App = memo(_ => (
       </ThemeProvider>
     </PersistGate>
   </Provider>
-))
+), () => false)
 
 export default App;

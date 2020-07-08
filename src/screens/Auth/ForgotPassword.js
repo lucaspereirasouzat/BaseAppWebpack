@@ -1,10 +1,10 @@
 import React, { useReducer, useState, useRef } from "react";
 import { TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { login, verify } from "../../reduxState/ducks/auth";
+import { login, verify } from "reduxState/ducks/auth";
 import { useDispatch } from "react-redux";
-import { validate } from "../../utils";
-import BaseComponent from "../../components/BaseComponent";
+import { validate } from "utils";
+import BaseComponent from "components/BaseComponent";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -57,13 +57,13 @@ const ForgotPassword = ({ history }) => {
 
     /**
      * Valida se o campo esta correto 
-     * @param {} field 
+     * @param {string} field 
      */
     const _isIncorrect = (field) => errors.some(v => v.field == field);
 
     /**
    * Valida se o campo esta correto e devolve a mensagem de erro
-   * @param {} field 
+   * @param {string} field 
    */
     const _isIncorrectMessage = (field) => errors.some(v => v.field == field) && errors.find(v => v.field == field).message
 

@@ -1,15 +1,14 @@
-
-import axios from 'axios';
-
-const url = {
-    dev: 'http://localhost:2021',
-    release: 'https://colocar api final'
-}
-
+const axios = require('axios');
 
 class Api {
+
+    url = {
+        dev: 'http://localhost:2021',
+        release: 'https://colocar api final'
+    }
+
     constructor() {
-        this.api = axios.create({ baseURL: url.dev, proxy: false })
+        this.api = axios.create({ baseURL: this.url.dev, proxy: false })
     }
 
 

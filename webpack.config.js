@@ -4,6 +4,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 
+
 module.exports = {
     entry:
         path.join(__dirname, '/src/index.js')
@@ -14,6 +15,17 @@ module.exports = {
         chunkFilename: '[name].chunk.js',
         path: path.resolve(__dirname, '..', 'public')
 
+    },
+    resolve: {
+        alias: {
+            components: path.resolve(__dirname, 'src/components/'),
+            services: path.resolve(__dirname, 'src/services/'),
+            utils: path.resolve(__dirname, 'src/utils/'),
+            screens: path.resolve(__dirname, 'src/screens/'),
+            reduxState: path.resolve(__dirname, 'src/reduxState/'),
+            assets: path.resolve(__dirname, 'src/assets/'),
+            typo: path.resolve(__dirname, 'src/typo/'),
+        }
     },
     devtool: 'cheap-module-eval-source-map',
     devServer: {

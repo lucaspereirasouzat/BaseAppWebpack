@@ -1,9 +1,9 @@
 import React, { useReducer, useState, useRef, useEffect, Suspense, lazy } from "react";
 import { TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { fetchNotifications } from "../reduxState/ducks/notifications";
+import { fetchNotifications } from "reduxState/ducks/notifications";
 import { useDispatch, useSelector } from "react-redux";
-import { BaseComponent } from "../components";
+import { BaseComponent } from "components";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -20,9 +20,7 @@ const useStyles = makeStyles(theme => ({
 const Notifications = () => {
     let [pesquisa, setPesquisa] = useState('')
     let { notifications, rowsPerPage, page, total } = useSelector(({ notification }) => notification)
-    let emailfield = useRef()
 
-    let [errors, setErrors] = useState([])
     const classes = useStyles();
     let dispatch = useDispatch();
 
@@ -30,7 +28,7 @@ const Notifications = () => {
         dispatch(fetchNotifications())
     }, [])
 
-    const TableModel = lazy(() => import('../components/TableModel'));
+    const TableModel = lazy(() => import('components/TableModel'));
 
     return (
         <BaseComponent>

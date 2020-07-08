@@ -1,10 +1,10 @@
 import React, { useReducer, useState, useRef } from "react";
 import { TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { register, verify } from "../../reduxState/ducks/auth";
+import { register, verify } from "reduxState/ducks/auth";
 import { useDispatch } from "react-redux";
-import { validate } from "../../utils";
-import BaseComponent from "../../components/BaseComponent";
+import { validate } from "utils";
+import BaseComponent from "components/BaseComponent";
 
 const useStyles = makeStyles(theme => ({
   root: {

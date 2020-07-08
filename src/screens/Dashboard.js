@@ -1,7 +1,7 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from "react-redux";
-import { BaseComponent } from "../components";
+import { BaseComponent } from "components";
 import DashUser from './User/DashUser';
 
 const useStyles = makeStyles(theme => ({
@@ -18,14 +18,14 @@ const useStyles = makeStyles(theme => ({
 
 const Dashboard = ({ history }) => {
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const classes = useStyles();
   let { user } = useSelector(({ auth }) => auth);
   let dispatch = useDispatch()
 
   useEffect(_ => {
-    dispatch(require('../reduxState/ducks/auth').RegisterTokenNotification())
+    dispatch(require('reduxState/ducks/auth').RegisterTokenNotification())
   }, [])
 
   if (user.Securelevel === 'adm') {

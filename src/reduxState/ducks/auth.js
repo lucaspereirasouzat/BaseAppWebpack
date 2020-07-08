@@ -1,4 +1,4 @@
-import Api from "../../services/Api";
+import Api from "services/Api";
 
 const TYPES = {
     clearError: 'AUTH/CLEAR_ERROR',
