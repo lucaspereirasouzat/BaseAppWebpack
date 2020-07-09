@@ -2,7 +2,8 @@ const path = require('path');
 const hwp = require('html-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+// const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+const WorkboxPlugin = require("workbox-webpack-plugin");
 
 
 module.exports = {
@@ -142,7 +143,9 @@ module.exports = {
             return assetFilename.endsWith('.js');
         }
     },
+    mode: 'development',
     optimization: {
+        usedExports: true,
         runtimeChunk: 'single',
         namedChunks: false,
         moduleIds: 'hashed',
@@ -198,6 +201,43 @@ module.exports = {
     plugins: [
         new hwp({ template: path.join(__dirname, '/public/index.html'), favicon: path.join(__dirname, '/public/favicon.ico') }),
         new CompressionPlugin(),
-        new ServiceWorkerWebpackPlugin({ entry: path.join(__dirname, '/src/serviceWorker.js') })
+        new WorkboxPlugin.InjectManifest({
+            swSrc: path.resolve(__dirname, 'src/src-sw.js'),
+            // importWorkboxFrom: 'disabled',
+            include: [
+                /\.html$/,
+                /\.js$/,
+                /\.css$/,
+                /\.woff2$/,
+                /\.jpg$/,
+                /\.png$/
+            ],
+            maximumFileSizeToCacheInBytes: 1000 * 1024 * 1024
+        }),
+
+
+        // new WorkboxWebpackPlugin.InjectManifest({
+        //     swSrc: "./src/src-sw.js",
+        //     swDest: "sw.js",
+        //     include: [
+        //         /\.html$/,
+        //         /\.js$/,
+        //         /\.css$/,
+        //         /\.woff2$/,
+        //         /\.jpg$/,
+        //         /\.png$/
+        //     ],
+
+        //     // maximumFileSizeToCacheInBytes: 100 * 1024 * 1024
+        // })
+        // new ServiceWorkerWebpackPlugin({
+        //     entry: path.join(__dirname, '/src/sw.js'),
+        //     excludes: [
+        //         '**/.*',
+        //         '**/*.map',
+        //         '*.html',
+        //     ],
+        //     filename: 'sw.js'
+        // })
     ]
 }

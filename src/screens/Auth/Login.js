@@ -1,5 +1,7 @@
 import React, { useReducer, useState, useRef } from "react";
-import { TextField, Button, Link } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import { login, verify } from "reduxState/ducks/auth";
 import { useDispatch } from "react-redux";

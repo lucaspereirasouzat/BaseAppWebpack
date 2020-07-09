@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+// import runtime from 'serviceworker-webpack-plugin/lib/runtime';
 
 export const initializeFirebase = () => {
 
@@ -14,11 +15,22 @@ export const initializeFirebase = () => {
     };
     firebase.initializeApp(firebaseConfig);
 
+
+
+    // if ('serviceWorker' in navigator) {
+    //     runtime.register().then(registration =>
+    //         firebase.messaging().useServiceWorker(registration)
+    //     );
+    // }
+
     navigator.serviceWorker
-        .register('./serviceWorker.js')
+        .register('src-sw.js')
         .then((registration) => {
+            console.log(registration);
+
             firebase.messaging().useServiceWorker(registration);
-        });
+        }).catch(err => console.log('err', err)
+        );
 }
 
 export const askForPermissioToReceiveNotifications = async () => {

@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import TablePagination from '@material-ui/core/TablePagination';
 
-const Pagination = memo(({ count, page, rowsPerPage, onChangePage, onChangeRowsPerPage, ...props }) => {
+const Pagination = memo(({ count = 0, page = 0, rowsPerPage = 0, onChangePage, onChangeRowsPerPage, ...props }) => {
     return <TablePagination
         style={{ width: '1%' }}
         count={count}
@@ -13,6 +13,12 @@ const Pagination = memo(({ count, page, rowsPerPage, onChangePage, onChangeRowsP
         labelDisplayedRows={
             ({ from, to, count }) => `${from}-${to === -1 ? count : to} de ${count}`}
         {...props} />
+}, (prev, next) => {
+    // if (prev.count !== next.count) return true
+    // if (prev.page !== next.page) return true
+    // if (prev.rowsPerPage !== next.rowsPerPage) return true
+
+    // return true;
 })
 
 

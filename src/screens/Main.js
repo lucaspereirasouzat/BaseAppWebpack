@@ -1,7 +1,7 @@
-import React, { useReducer } from "react";
-import BaseComponent from "../components/BaseComponent";
+import React, { memo } from "react";
+import BaseComponent from "components/BaseComponent";
 
-const Home = () => {
+const Home = memo(() => {
 
   return (
     <BaseComponent >
@@ -13,7 +13,7 @@ const Home = () => {
       </div>
     </BaseComponent>
   )
-}
+}, false)
 
 export default Home
 

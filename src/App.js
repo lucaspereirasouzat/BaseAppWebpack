@@ -47,6 +47,6 @@ const App = memo(_ => (
       </ThemeProvider>
     </PersistGate>
   </Provider>
-), () => false)
+), false)
 
 export default App;

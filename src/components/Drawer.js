@@ -1,6 +1,11 @@
 import React, { memo, Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Drawer, List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import { useHistory } from "react-router-dom";
 // import routes from '../routes';
 
@@ -32,7 +37,6 @@ const DrawerComponent = memo(({ state, setState, user }) => {
     };
 
     const routes = require('../routes').default
-    console.log('ender');
 
     return (
         <Fragment>
