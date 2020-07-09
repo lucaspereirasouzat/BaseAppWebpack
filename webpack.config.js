@@ -4,7 +4,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 // const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const WorkboxPlugin = require("workbox-webpack-plugin");
-
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry:
@@ -210,9 +210,16 @@ module.exports = {
                 /\.css$/,
                 /\.woff2$/,
                 /\.jpg$/,
-                /\.png$/
+                /\.png$/,
+                /\.json$/
             ],
             maximumFileSizeToCacheInBytes: 1000 * 1024 * 1024
+        }),
+        new CopyPlugin({
+            patterns: [
+                { from: 'public/images', to: 'images' },
+                { from: 'public', to: 'manifest' },
+            ],
         }),
 
 

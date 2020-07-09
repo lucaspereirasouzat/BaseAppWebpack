@@ -1,3 +1,3 @@
-// let workbox = require('workbox-webpack-plugin')
+import { precacheAndRoute } from 'workbox-precaching';
 
-workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
+precacheAndRoute(self.__WB_MANIFEST);
