@@ -1,7 +1,7 @@
-import React, { Component, memo, useState, useEffect } from 'react';
-// import { Widget, addResponseMessage } from 'react-chat-widget';
+import React, { memo, useState } from 'react';
 import { Input, Card, Fab } from "@material-ui/core";
-// import 'react-chat-widget/lib/styles.css';
+import { Message } from "@material-ui/icons";
+
 
 var socket = new WebSocket("ws://localhost:2021/auth/ws");
 socket.onopen = function (e) {
@@ -82,7 +82,9 @@ const App = memo((_) => {
 
     return (
         <div style={{ width: '100vw', height: '100vh' }}>
-            <Fab style={{ right: 20, donw: 0, position: 'fixed' }} onClick={_ => setOpen(!open)}></Fab>
+            <Fab style={{ right: 20, donw: 0, position: 'fixed' }} onClick={_ => setOpen(!open)}>
+                <Message />
+            </Fab>
 
 
             <Card style={{ justifyContent: 'center', alignSelf: 'right', width: '30%', display: open ? 'none' : '' }}>

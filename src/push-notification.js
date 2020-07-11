@@ -4,30 +4,21 @@ import firebase from 'firebase';
 export const initializeFirebase = () => {
 
     const firebaseConfig = {
-        apiKey: "AIzaSyBcqZLzOCW51CzIW0wTxNRJLDpfiURsPts",
-        authDomain: "golangproject-4b9a2.firebaseapp.com",
-        databaseURL: "https://golangproject-4b9a2.firebaseio.com",
-        projectId: "golangproject-4b9a2",
-        storageBucket: "golangproject-4b9a2.appspot.com",
-        messagingSenderId: "411225577463",
-        appId: "1:411225577463:web:37df55fa108635390ec0f2",
-        measurementId: "G-17C5J8BDD8"
+        apiKey: process.env.APIKEY,
+        authDomain: process.env.AUTHDOMAIN,
+        databaseURL: process.env.DATABASEURL,
+        projectId: process.env.PROJECTID,
+        storageBucket: process.env.STORAGEBUCKET,
+        messagingSenderId: process.env.MESSAGINGSENDERID,
+        appId: process.env.APPID,
+        measurementId: process.env.MEASUREMENTID
     };
     firebase.initializeApp(firebaseConfig);
 
 
-
-    // if ('serviceWorker' in navigator) {
-    //     runtime.register().then(registration =>
-    //         firebase.messaging().useServiceWorker(registration)
-    //     );
-    // }
-
     navigator.serviceWorker
-        .register('src-sw.js')
+        .register('/service-worker.js')
         .then((registration) => {
-            console.log(registration);
-
             firebase.messaging().useServiceWorker(registration);
         }).catch(err => console.log('err', err)
         );

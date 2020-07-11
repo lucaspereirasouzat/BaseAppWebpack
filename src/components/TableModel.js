@@ -54,8 +54,15 @@ const TableModel = memo(({ header, data, total, page, rowsPerPage, setPesquisa }
                         </TableRow>
                     </TableHead>
 
+
                     <TableBody>
-                        {data.map((v, index) => <TableRow >{Object.keys(v).map(key => <TableCell>{v[key]}</TableCell>)} </TableRow>
+                        {data.map(
+                            (v) => <TableRow>
+                                {
+                                    Object.keys(v).map(key =>
+                                        <TableCell>{v[key]}</TableCell>
+                                    )}
+                            </TableRow>
                         )}
                     </TableBody>
 

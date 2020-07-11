@@ -79,23 +79,20 @@ export default (state = initialState, action) => {
  */
 export const login = ({ email, password }) => async (dispatch) => {
     dispatch({ type: 'AUTH/CLEAR_ERROR' })
-    // let body = {
-    //     email,
-    //     password
-    // }
+
     let body = new FormData();
     body.append("email", email)
     body.append("password", password)
 
     var promise1 = new Promise(async (resolve, reject) => {
         try {
-            let result = await Api.login({ body })
+            // Pega o token do backend
+            let token = await Api.login({ body })
 
-            console.log(result);
             dispatch({
                 type: TYPES.loginSuccess,
                 payload: {
-                    token: { token: result }
+                    token: { token }
                 }
             });
             resolve({
@@ -103,7 +100,6 @@ export const login = ({ email, password }) => async (dispatch) => {
                 password
             })
         } catch (error) {
-            console.log(error);
 
             dispatch({
                 type: TYPES.loginFailure,
@@ -294,9 +290,9 @@ export const RegisterTokenNotification = () => async (dispatch, getState) => {
         } catch (error) {
             dispatch({
                 type: TYPES.RegisterTokenFailure,
-                error: error.response.data
+                error: {}//error.response.data
             })
-            reject(error.response.data)
+            reject(error.response)
         }
     })
     return promise1

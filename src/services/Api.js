@@ -3,7 +3,7 @@ const axios = require('axios');
 class Api {
 
     url = {
-        dev: 'http://localhost:2021',
+        dev: process.env.BACKEND_URL,
         release: 'https://colocar api final'
     }
 
@@ -34,7 +34,7 @@ class Api {
 
     // Pegar dados do user
     async show(token) {
-        const headers = { Authorization: `Bearer \"${token}\"` }
+        const headers = this.headers(token)
         const result = await this.api.get(`/auth/myUser`, { headers })
         return result.data
     }
@@ -72,13 +72,12 @@ class Api {
     }
 
     /**
-     * 
      * Images
      */
 
     // Faz o login do user 
     async getImage({ token, id }) {
-        const headers = { Authorization: `Bearer \"${token}\"` }
+        const headers = this.headers(token)
         const response = await this.api.get(`/file/show?path=${id}`, { headers, responseType: 'arraybuffer' })
         let data = `data: ${
             response.headers["content-type"]
