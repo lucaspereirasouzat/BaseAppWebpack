@@ -75,6 +75,7 @@ const Users = ({ history }) => {
                         async (image_id) => {
                             image = await require("services/Api.js").default.getImage({ token: token.token, id: image_id.String })
                         }
+                        console.log('image', image_id)
                         console.log(image)
                         return (
                             <Fragment>

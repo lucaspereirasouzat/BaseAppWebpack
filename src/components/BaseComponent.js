@@ -1,12 +1,19 @@
-import React, { memo, lazy, Suspense } from "react";
+import React, { memo, lazy, Suspense, Fragment, useEffect } from "react";
+// import firebase from 'firebase';
 
 const Topbar = require('./Topbar').default;
-const Chat = require('./Chat').default;
-// const Chat = lazy(() => import('./Chat'));
+
+
+
+// const Chat = require('./Chat').default;
+//const Topbar = lazy(() => import('./Topbar'));
 export default memo(({ children }) => {
-    return <div>
+
+    return <Fragment >
+        {/* <Suspense fallback={<div />}> */}
         <Topbar />
+        {/* </Suspense> */}
         {children}
-        <Chat />
-    </div>
-})
+        {/* <Chat /> */}
+    </Fragment>
+}, () => false)

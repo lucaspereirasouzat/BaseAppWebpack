@@ -22,6 +22,7 @@ class Api {
 
     // Faz o login do user
     async login({ body }) {
+        console.log('Result', navigator.vibrate(10));
         const result = await this.api.post(`/auth/session`, body)
         return result.data
     }

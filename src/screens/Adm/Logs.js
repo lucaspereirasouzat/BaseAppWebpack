@@ -12,10 +12,10 @@ const Logs = () => {
     useEffect(() => {
         dispatch(fetchLogs())
     }, [])
-
+    console.log(total);
     return (
         <BaseComponent>
-            <div style={{ alignItems: 'center', justifyContent: 'center', display: 'flex', width: '100vw', height: '100vh' }}>
+            <div style={{ alignItems: 'center', justifyContent: 'center', display: 'flex', width: '100%', height: '100%' }}>
                 <TableModel
                     total={total}
                     page={page}
@@ -23,7 +23,7 @@ const Logs = () => {
                     setPesquisa={v => { setPesquisa(v); dispatch(fetchLogs(page, rowsPerPage, v)); }}
                     onChangeRowsPerPage={e => dispatch(fetchLogs(page, e.target.value, pesquisa))}
                     onChangePage={(e, apage) => dispatch(fetchLogs(apage, rowsPerPage, pesquisa))}
-                    header={['Data', 'Titulo', 'Corpo']}
+                    header={['ID', 'Ms', 'Method', "Status", 'URL', 'Data']}
                     data={logs} />
             </div>
         </BaseComponent>

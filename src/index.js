@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 // import * as serviceWorker from './sw';
-import { initializeFirebase } from './push-notification';
 
 ReactDOM.render(
   <App />,
   document.getElementById('root'))
 
-initializeFirebase()
+require('./push-notification').initializeFirebase()
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -21,3 +20,4 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
+

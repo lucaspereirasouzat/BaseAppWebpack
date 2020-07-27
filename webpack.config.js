@@ -7,6 +7,7 @@ const WorkboxPlugin = require("workbox-webpack-plugin");
 const CopyPlugin = require('copy-webpack-plugin');
 // const webpack = require('webpack');
 const DotenvPlugin = require('webpack-dotenv-plugin');
+var WebpackPwaManifest = require('webpack-pwa-manifest')
 
 module.exports = {
     entry:
@@ -153,7 +154,7 @@ module.exports = {
         moduleIds: 'hashed',
         splitChunks: {
             chunks: 'all',
-            minSize: 0,
+            //minSize: 0,
             // maxSize: 100000,
             // minChunks: 5,
             // maxAsyncRequests: 6,
@@ -216,17 +217,25 @@ module.exports = {
                 /\.woff2$/,
                 /\.jpg$/,
                 /\.png$/,
-                /\.json$/
+                // /\.json$/
             ],
             maximumFileSizeToCacheInBytes: 1000 * 1024 * 1024,
 
         }),
-        new CopyPlugin({
-            patterns: [
-                { from: 'public/images', to: 'images' },
-                { from: 'public/manifest', to: 'manifest' },
-            ],
-        }),
+        new WebpackPwaManifest({
+            name: 'My Progressive Web App',
+            short_name: 'MyPWA',
+            description: 'My awesome Progressive Web App!',
+            background_color: '#ffffff',
+            display: "fullscreen",
+            //crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
+            icons: [
+                {
+                    src: path.join(__dirname, '/src/assets/icon.png'),
+                    sizes: [96, 128, 192, 256, 384, 512] // multiple sizes
+                }
+            ]
+        })
 
     ]
 }

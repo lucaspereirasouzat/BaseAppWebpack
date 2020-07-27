@@ -3,9 +3,9 @@
   "short_name": "Webpack ",
   "theme_color": "#000000",
   "background_color": "#43a8f8",
-  "display": "standalone",
+  "display": "Fullscreen",
   "Scope": "/",
-  "start_url": "/index.html",
+  "start_url": "./",
   "icons": [
     {
       "src": "../images/icons/icon-72x72.png",

@@ -77,8 +77,9 @@ export default (state = initialState, action) => {
 /**
  * Faz o login do usuario
  */
-export const login = ({ email, password }) => async (dispatch) => {
-    dispatch({ type: 'AUTH/CLEAR_ERROR' })
+export const login = ({ email, password }) => async (dispatch, getState) => {
+    let { error } = getState().auth;
+    error && dispatch({ type: 'AUTH/CLEAR_ERROR' })
 
     let body = new FormData();
     body.append("email", email)
@@ -114,8 +115,10 @@ export const login = ({ email, password }) => async (dispatch) => {
 /**
  * Faz o cadastro do usuario
  */
-export const register = ({ username, email, password }) => async (dispatch) => {
-    dispatch({ type: 'AUTH/CLEAR_ERROR' })
+export const register = ({ username, email, password }) => async (dispatch, getState) => {
+    let { error } = getState().auth;
+    error && dispatch({ type: 'AUTH/CLEAR_ERROR' })
+
     let body = {
         username,
         email,
@@ -153,9 +156,10 @@ export const register = ({ username, email, password }) => async (dispatch) => {
  * valida o cadastro do usurio com o back end
  */
 export const verify = () => async (dispatch, getState) => {
-    dispatch({ type: 'AUTH/CLEAR_ERROR' })
+    let { error, token } = getState().auth;
+    error && dispatch({ type: 'AUTH/CLEAR_ERROR' })
 
-    let { token } = getState().auth
+    // let { token } = getState()
 
     if (token) {
         var promise1 = new Promise(async (resolve, reject) => {
@@ -184,8 +188,10 @@ export const verify = () => async (dispatch, getState) => {
 /**
  * reseta a senha
  */
-export const ResetPassword = ({ password }) => async (dispatch) => {
-    dispatch({ type: 'AUTH/CLEAR_ERROR' })
+export const ResetPassword = ({ password }) => async (dispatch, getState) => {
+    let { error } = getState().auth;
+    error && dispatch({ type: 'AUTH/CLEAR_ERROR' })
+
     try {
         dispatch({
             type: TYPES.ResetPasswordSuccess,
@@ -207,9 +213,10 @@ export const ResetPassword = ({ password }) => async (dispatch) => {
  * atualiza os dados do user
  */
 export const UpdateUser = ({ Username, image }) => async (dispatch, getState) => {
-    dispatch({ type: 'AUTH/CLEAR_ERROR' })
+    let { error, token } = getState().auth;
+    error && dispatch({ type: 'AUTH/CLEAR_ERROR' })
 
-    let { token } = getState().auth
+
     let form = new FormData();
     let code = require("msgpack-lite").encode({ 'Username': Username })
     //     form.append('username', username)
@@ -241,8 +248,9 @@ export const UpdateUser = ({ Username, image }) => async (dispatch, getState) =>
 /**
  * atualiza os dados do user
  */
-export const Logout = () => async (dispatch) => {
-    dispatch({ type: 'AUTH/CLEAR_ERROR' })
+export const Logout = () => async (dispatch, getState) => {
+    let { error } = getState().auth;
+    error && dispatch({ type: 'AUTH/CLEAR_ERROR' })
 
     //let { token } = getState().auth
     var promise1 = new Promise(async (resolve, reject) => {
@@ -267,9 +275,8 @@ export const Logout = () => async (dispatch) => {
  * atualiza os dados do user
  */
 export const RegisterTokenNotification = () => async (dispatch, getState) => {
-    dispatch({ type: 'AUTH/CLEAR_ERROR' })
-
-    let { token } = getState().auth
+    let { error, token } = getState().auth;
+    error && dispatch({ type: 'AUTH/CLEAR_ERROR' })
 
     let TokenNotification = await require("../../push-notification").askForPermissioToReceiveNotifications()
     let form = new FormData();

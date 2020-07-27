@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import { createMuiTheme } from '@material-ui/core/styles'
 import './App.css';
@@ -31,48 +31,10 @@ const theme = createMuiTheme({
   }
 });
 
-// var CACHE_NAME = 'otimigas-app';
-
-// function queryCache() {
-//   var url = [];
-//   caches.open('mycache').then(function (cache) {
-//     cache.keys().then(function (keys) {
-//       return Promise.all(
-//         keys.map(function (k) { url.push(k.url); return k.url })
-//       )
-//     }).then(function (u) { cacheList(url); })
-//   })
-// }
-
-// self.addEventListener('install', async function (event) {
-//   let urlsToCache = await queryCache()
-//   // Perform install steps
-//   event.waitUntil(
-//     caches.open(urlsToCache)
-//       .then(function (cache) {
-//         return cache.addAll(urlsToCache);
-//       })
-//   );
-// });
-
-// self.addEventListener('fetch', function (event) {
-//   event.respondWith(
-//     caches.match(event.request)
-//       .then(function (response) {
-//         // Cache hit - return response
-//         if (response) {
-//           return response;
-//         }
-//         return fetch(event.request);
-//       }
-//       )
-//   );
-// });
-
 
 const App = memo(_ => (
   <Provider store={store}>
-    <PersistGate persistor={persistor}>
+    <PersistGate loading={<div>Loading ...</div>} persistor={persistor}>
       <ThemeProvider theme={theme}>
 
         <BrowserRouter>

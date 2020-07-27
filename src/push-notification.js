@@ -20,7 +20,8 @@ export const initializeFirebase = () => {
         .register('/service-worker.js')
         .then((registration) => {
             firebase.messaging().useServiceWorker(registration);
-        }).catch(err => console.log('err', err)
+            console.log("registrou")
+        }).catch(err => console.log('err in register', err)
         );
 }
 
@@ -29,6 +30,12 @@ export const askForPermissioToReceiveNotifications = async () => {
         const messaging = firebase.messaging();
         await messaging.requestPermission();
         const token = await messaging.getToken();
+
+        // const messaging = firebase.messaging();
+        // console.log(messaging)
+        messaging.onMessage(payload => {
+            console.log('[firebase-messaging-sw.js] Received background message ', payload);
+        })
         console.log('token do usuário:', token);
         //alert(token)
         return token;

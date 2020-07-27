@@ -63,7 +63,7 @@ export default usersReducer;
 /**
  * Pega todos os usuarios do sistema
  */
-export const fetchLogs = (page = 1, rowsPerPage = 50, search = "") => async (dispatch, getState) => {
+export const fetchLogs = (page = 0, rowsPerPage = 50, search = "") => async (dispatch, getState) => {
     //dispatch({ type: 'LOG/CLEAR_ERROR' })
     // console.log(page = 1, rowsPerPage = 10, search)
 

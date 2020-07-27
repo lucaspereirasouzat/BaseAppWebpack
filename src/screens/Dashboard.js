@@ -16,7 +16,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
+
 const Dashboard = ({ history }) => {
+
+
 
   const [open, setOpen] = useState(false);
 
@@ -25,8 +29,15 @@ const Dashboard = ({ history }) => {
   let dispatch = useDispatch()
 
   useEffect(_ => {
+    const messaging = require('firebase').messaging();
+    console.log('serviceWorker', messaging)
+    messaging.onMessage(payload => {
+      console.log('[firebase-messaging-sw.js] Received background message ', payload);
+    })
+
     dispatch(require('reduxState/ducks/auth').RegisterTokenNotification())
   }, [])
+
 
   if (user.Securelevel === 'adm') {
 

@@ -19,14 +19,14 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center'
     },
 }));
+const Pagination = lazy(() => import('./Pagination'))
+const Search = require('@material-ui/icons/Search').default
 
-const TableModel = memo(({ header, data, total, page, rowsPerPage, setPesquisa }) => {
+const TableModel = memo(({ header, data, total, page, rowsPerPage, setPesquisa, onChangeRowsPerPage, onChangePage }) => {
     const classes = useStyles();
-    const Pagination = require('./Pagination').default
-    const Search = require('@material-ui/icons/Search').default
 
     return (
-        <div style={{ width: '90%', height: '90%' }}>
+        <div style={{ width: '100%', height: '100%' }}>
 
             <FormControl className={classes.margin}>
                 <Input
@@ -42,36 +42,51 @@ const TableModel = memo(({ header, data, total, page, rowsPerPage, setPesquisa }
                     }
                 />
             </FormControl>
-
-            <Pagination count={total} page={page} rowsPerPage={rowsPerPage} />
-            <TableContainer>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            {
-                                header.map((v, index) => <TableCell component="th" id={index} scope="row" padding="none">{v}</TableCell>)
-                            }
-                        </TableRow>
-                    </TableHead>
-
-
-                    <TableBody>
-                        {data.map(
-                            (v) => <TableRow>
+            <Suspense fallback={<div></div>} >
+                <Pagination
+                    onChangeRowsPerPage={onChangeRowsPerPage}
+                    count={total}
+                    page={page}
+                    rowsPerPage={rowsPerPage}
+                    onChangePage={onChangePage}
+                />
+                <TableContainer>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
                                 {
-                                    Object.keys(v).map(key =>
-                                        <TableCell>{v[key]}</TableCell>
-                                    )}
+                                    header.map((v, index) => <TableCell component="th" id={index} scope="row" padding="none">{v}</TableCell>)
+                                }
                             </TableRow>
-                        )}
-                    </TableBody>
+                        </TableHead>
 
-                </Table>
-            </TableContainer>
-            <Pagination count={total} page={page} rowsPerPage={rowsPerPage} />
+
+                        <TableBody>
+                            {data.map(
+                                (v) => <TableRow>
+                                    {
+                                        Object.keys(v).map(key =>
+                                            <TableCell>{v[key]}</TableCell>
+                                        )}
+                                </TableRow>
+                            )}
+                        </TableBody>
+
+                    </Table>
+                </TableContainer>
+
+                <Pagination
+                    onChangeRowsPerPage={onChangeRowsPerPage}
+                    count={total}
+                    page={page}
+                    rowsPerPage={rowsPerPage}
+                    onChangePage={onChangePage}
+                />
+            </Suspense>
         </div>
     )
-})
+},// (prev, next) => //(prev.count !== next.count || prev.page !== next.page || prev.rowsPerPage !== next.rowsPerPage)
+)
 
 
 export default TableModel;
